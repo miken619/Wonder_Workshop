@@ -1,6 +1,6 @@
 import React from 'react';
 
-const SubredditListEntry = (props) => (
+const SubredditPostEntry = (props) => (
     <div className="subreddit-list-entry">
       <div className="media-body">
         <div className="subreddit-list-entry-title" ></div>
@@ -9,4 +9,4 @@ const SubredditListEntry = (props) => (
     </div>
 );
 
-export default SubredditListEntry;
+export default SubredditPostEntry;

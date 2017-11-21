@@ -1,3 +1,5 @@
+import React from 'react';
+
 const Search = () => {
     return (
         <div className="search-bar form-inline">
@@ -8,3 +10,5 @@ const Search = () => {
         </div> 
     )
 };
+
+export default Search;

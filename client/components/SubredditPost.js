@@ -1,8 +1,8 @@
 import React from 'react';
 
-import SubredditListEntry from './SubredditListEntry';
+import SubredditPostEntry from './SubredditPostEntry';
 
-const SubredditList = (props) => (
+const SubredditPost = (props) => (
     <div className="subreddit-list media">
       {props.subreddit.map(val => 
         <SubredditListEntry subreddit={val} handleClick={props.handleClick}/>
@@ -10,5 +10,4 @@ const SubredditList = (props) => (
     </div>
 );
 
-export default SubredditList;
-
+export default SubredditPost;
