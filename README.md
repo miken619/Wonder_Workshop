@@ -1,1 +1,1 @@
-Boiler Plate for a React App
+Wonder Workshop Coding Challenge
