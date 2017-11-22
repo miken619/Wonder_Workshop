@@ -47,12 +47,13 @@ export default class App extends Component {
         return (
             <div> 
                 <Nav handleSubmit={this.onSubmitHandler}/>
-                <div className="col-md-9">
-                    <SubredditsPost subredditsPost={this.state.allSubredditsPost}/>
-                </div>
                 <div className="col-md-3">
                     <SubredditsList subredditsList={this.state.allSubredditsList} onCancelHandler={this.onCancelHandler}/>
                 </div>
+                <div className="col-md-9">
+                    <SubredditsPost subredditsPost={this.state.allSubredditsPost}/>
+                </div>
+                
             </div>
         );
     }
