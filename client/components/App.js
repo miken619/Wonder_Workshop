@@ -1,8 +1,8 @@
 import React, { Component } from 'react';
 
 import Nav from './Nav';
-import SubredditList from './SubredditList';
-import SubredditPost from './SubredditPost';
+import SubredditsList from './SubredditsList';
+import SubredditsPost from './SubredditsPost';
 
 import { getSubreddit } from '../lib/searchForSubreddit';
 
@@ -10,21 +10,24 @@ export default class App extends Component {
     constructor(props) {
         super(props);
         this.state = {
-            allSubreddits: [],
+            allSubredditsList: [],
             allSubredditsPost: []
         }
-
+        this.callback = this.callback.bind(this);
         this.onCancelHandler = this.onCancelHandler.bind(this);
         this.onSubmitHandler = this.onSubmitHandler.bind(this);
         this.onClickHandler = this.onClickHandler.bind(this);
+        
     }
 
     componentDidMount() {
-        let cb = (res) => {
-            console.log('res is ', res);
-        }
+        getSubreddit('news', this.callback, this.state.allSubredditsList, this.state.allSubredditsPost);
+    }
 
-        getSubreddit('news', cb);
+    callback(list, post) {
+        console.log('Post', post);
+        this.setState({allSubredditsList: list,
+                       allSubredditsPost: post});
     }
 
     onClickHandler(props) {
@@ -36,7 +39,8 @@ export default class App extends Component {
     }
 
     onSubmitHandler(val) {
-        console.log('val is ' + val);
+        console.log('User entered ' + val);
+
     }
 
     render() {
@@ -44,10 +48,10 @@ export default class App extends Component {
             <div> 
                 <Nav handleSubmit={this.onSubmitHandler}/>
                 <div className="col-md-9">
-                    <SubredditPost subreddit={this.state.allSubreddits}/>
+                    <SubredditsPost subredditsPost={this.state.allSubredditsPost}/>
                 </div>
                 <div className="col-md-3">
-                    <SubredditList subreddit={this.state.allSubreddits} handleCancel={this.onCancelHandler}/>
+                    <SubredditsList subredditsList={this.state.allSubredditsList} onCancelHandler={this.onCancelHandler}/>
                 </div>
             </div>
         );
