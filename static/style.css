@@ -9,11 +9,6 @@ body {
     margin-bottom: 20px;
   }
   
-  .navbar img {
-    height: 40px;
-    width: 50px;
-  }
-  
   .search-bar {
     border-radius: 1px;
     background: #fff;

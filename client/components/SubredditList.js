@@ -5,7 +5,7 @@ import SubredditListEntry from './SubredditListEntry';
 const SubredditList = (props) => (
     <div className="subreddit-list media">
       {props.subreddit.map(val => 
-        <SubredditListEntry subreddit={val} handleClick={props.handleClick}/>
+        <SubredditListEntry subreddit={val} onCancelHandler={props.onCancelHandler}/>
       )}
     </div>
 );
