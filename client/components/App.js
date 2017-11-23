@@ -4,42 +4,64 @@ import Nav from './Nav';
 import SubredditsList from './SubredditsList';
 import SubredditsPost from './SubredditsPost';
 
-import { getSubreddit } from '../lib/searchForSubreddit';
+import { addSubreddit,  
+         updateSubreddit, 
+         removeSubreddit,
+         pagination} from '../lib/searchForSubreddit';
 
 export default class App extends Component {
     constructor(props) {
         super(props);
         this.state = {
+            page: 10,
             allSubredditsList: [],
             allSubredditsPost: []
         }
-        this.callback = this.callback.bind(this);
+        this.updateState = this.updateState.bind(this);
         this.onCancelHandler = this.onCancelHandler.bind(this);
         this.onSubmitHandler = this.onSubmitHandler.bind(this);
-        this.onClickHandler = this.onClickHandler.bind(this);
+        this.handleScroll = this.handleScroll.bind(this);
         
     }
 
+    handleScroll() {
+        const windowHeight = "innerHeight" in window ? window.innerHeight : document.documentElement.offsetHeight;
+        const body = document.body;
+        const html = document.documentElement;
+        const docHeight = Math.max(body.scrollHeight, body.offsetHeight, html.clientHeight,  html.scrollHeight, html.offsetHeight);
+        const windowBottom = windowHeight + window.pageYOffset;
+        if (windowBottom >= docHeight) {
+            
+            this.setState({page: (this.state.page + 10)});
+            console.log('At the bottom' + this.state.page);
+            pagination(this.updateState, this.state.allSubredditsList, this.state.allSubredditsPost, this.state.page);        
+        } else {
+            console.log('Not at the bottom');
+        }
+      }
+
     componentDidMount() {
-        getSubreddit('news', this.callback, this.state.allSubredditsList, this.state.allSubredditsPost);
+        window.addEventListener("scroll", this.handleScroll);
+        addSubreddit('news', this.updateState, this.state.allSubredditsList, this.state.allSubredditsPost, this.state.page);
     }
 
-    callback(list, post) {
-        console.log('Post', post);
+    componentWillUnmount() {
+        window.removeEventListener("scroll", this.handleScroll);
+      }
+
+    updateState(list, post) {
         this.setState({allSubredditsList: list,
                        allSubredditsPost: post});
     }
 
-    onClickHandler(props) {
-        this.setState({currentVideo: props});          
-    }
+  
 
-    onCancelHandler(props) {
-        this.setState({currentVideo: props});          
+    onCancelHandler(val) {
+        removeSubreddit(val, this.updateState, this.state.allSubredditsList, this.state.allSubredditsPost);   
     }
 
     onSubmitHandler(val) {
-        console.log('User entered ' + val);
+        addSubreddit(val.toLowerCase(), this.updateState, this.state.allSubredditsList, this.state.allSubredditsPost, this.state.page);
 
     }
 
