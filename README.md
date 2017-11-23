@@ -8,6 +8,9 @@
 ```sh
 npm install
 ```
+```sh
+npm run build
+```
 - Navigate to the 'static' folder
 - Double click on index.html
 - The 'news' subreddit is the default and you can add more subreddit by searching
